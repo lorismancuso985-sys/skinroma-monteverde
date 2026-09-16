@@ -39,6 +39,9 @@
     if(duplicatedCard)duplicatedCard.remove();
   }
 
+  const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
+  if(ghdBrand)ghdBrand.textContent='GHD';
+
   const form=qs('form[data-newsletter-enhanced="true"]');
   if(form){
     const status=qs('.newsletter-status',form), button=qs('button[type="submit"]',form);
