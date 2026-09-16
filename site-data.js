@@ -39,16 +39,6 @@
     if(duplicatedCard)duplicatedCard.remove();
   }
 
-  const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
-  if(ghdBrand){
-    ghdBrand.setAttribute('aria-label','ghd');
-    ghdBrand.style.display='flex';
-    ghdBrand.style.alignItems='center';
-    ghdBrand.style.justifyContent='center';
-    ghdBrand.style.overflow='hidden';
-    ghdBrand.innerHTML='<img src="assets/ghd-logo.svg?v=20260916e" alt="ghd" loading="lazy" decoding="async" style="display:block;width:92px;max-width:72%;max-height:60px;height:auto;object-fit:contain;margin:auto;transform:translateY(1px) scaleX(1.05);transform-origin:center;">';
-  }
-
   const form=qs('form[data-newsletter-enhanced="true"]');
   if(form){
     const status=qs('.newsletter-status',form), button=qs('button[type="submit"]',form);
