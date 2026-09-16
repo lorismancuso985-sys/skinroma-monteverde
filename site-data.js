@@ -12,8 +12,25 @@
   const reviewScore=qs('.reviews-score');
   if(reviewScore){
     const value=qs('strong',reviewScore);
-    if(value)value.textContent='4,9';
+    if(value)value.innerHTML='4,<span style="font-size:.62em;line-height:1;vertical-align:.28em;display:inline-block;margin-left:.015em">9</span>';
     reviewScore.setAttribute('aria-label',lang==='en'?'4.9 out of 5 on Treatwell, over 980 verified reviews':'Valutazione 4,9 su 5 su Treatwell, oltre 980 recensioni verificate');
+  }
+
+  const contactEmail='info@skinroma.it';
+  const menuMeta=qs('.menu-meta');
+  if(menuMeta&&!menuMeta.querySelector(`a[href="mailto:${contactEmail}"]`)){
+    const link=document.createElement('a');
+    link.href=`mailto:${contactEmail}`;
+    link.textContent=contactEmail;
+    menuMeta.appendChild(link);
+  }
+  const contactButtons=qs('.contact-buttons');
+  if(contactButtons&&!contactButtons.querySelector(`a[href="mailto:${contactEmail}"]`)){
+    const link=document.createElement('a');
+    link.href=`mailto:${contactEmail}`;
+    link.className='btn btn-outline';
+    link.textContent=contactEmail;
+    contactButtons.appendChild(link);
   }
 
   const form=qs('form[data-newsletter-enhanced="true"]');
