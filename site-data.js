@@ -42,27 +42,49 @@
   const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
   if(ghdBrand)ghdBrand.textContent='GHD';
 
+  const bindProductsLink=link=>{
+    if(!link||link.dataset.productsBound==='1')return;
+    link.dataset.productsBound='1';
+    link.addEventListener('click',e=>{
+      const target=qs('#shop');
+      if(!target)return;
+      e.preventDefault();
+      target.hidden=false;
+      const menuBtn=qs('#menuBtn');
+      if(document.body.classList.contains('menu-open'))menuBtn?.click();
+      window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>{
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+        try{history.replaceState(null,'','#shop')}catch{}
+      }));
+    });
+  };
+
   const exposeProductsNav=()=>{
     const menuNav=qs('.menu-inner nav');
-    if(menuNav&&!menuNav.querySelector('a[href="#shop"]')){
-      const link=document.createElement('a');
-      link.href='#shop';
-      link.innerHTML=`<span></span>${lang==='en'?'Products':'Prodotti'}`;
+    let menuLink=menuNav?.querySelector('a[href="#shop"]')||null;
+    if(menuNav&&!menuLink){
+      menuLink=document.createElement('a');
+      menuLink.href='#shop';
+      menuLink.innerHTML=`<span></span>${lang==='en'?'Products':'Prodotti'}`;
       const before=menuNav.querySelector('a[href="#recensioni"],a[href="#reviews"]');
-      if(before)menuNav.insertBefore(link,before); else menuNav.appendChild(link);
+      if(before)menuNav.insertBefore(menuLink,before); else menuNav.appendChild(menuLink);
       [...menuNav.querySelectorAll('a')].forEach((item,i)=>{
         const n=item.querySelector('span');
         if(n)n.textContent=String(i+1).padStart(2,'0');
       });
     }
+    bindProductsLink(menuLink);
+
     const footerNav=qs('.footer nav');
-    if(footerNav&&!footerNav.querySelector('a[href="#shop"]')){
-      const link=document.createElement('a');
-      link.href='#shop';
-      link.textContent=lang==='en'?'Products':'Prodotti';
+    let footerLink=footerNav?.querySelector('a[href="#shop"]')||null;
+    if(footerNav&&!footerLink){
+      footerLink=document.createElement('a');
+      footerLink.href='#shop';
+      footerLink.textContent=lang==='en'?'Products':'Prodotti';
       const before=footerNav.querySelector('a[href="#recensioni"],a[href="#reviews"]');
-      if(before)footerNav.insertBefore(link,before); else footerNav.appendChild(link);
+      if(before)footerNav.insertBefore(footerLink,before); else footerNav.appendChild(footerLink);
     }
+    bindProductsLink(footerLink);
   };
 
   const form=qs('form[data-newsletter-enhanced="true"]');
