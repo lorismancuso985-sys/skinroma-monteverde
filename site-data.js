@@ -42,6 +42,29 @@
   const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
   if(ghdBrand)ghdBrand.textContent='GHD';
 
+  const exposeProductsNav=()=>{
+    const menuNav=qs('.menu-inner nav');
+    if(menuNav&&!menuNav.querySelector('a[href="#shop"]')){
+      const link=document.createElement('a');
+      link.href='#shop';
+      link.innerHTML=`<span></span>${lang==='en'?'Products':'Prodotti'}`;
+      const before=menuNav.querySelector('a[href="#recensioni"],a[href="#reviews"]');
+      if(before)menuNav.insertBefore(link,before); else menuNav.appendChild(link);
+      [...menuNav.querySelectorAll('a')].forEach((item,i)=>{
+        const n=item.querySelector('span');
+        if(n)n.textContent=String(i+1).padStart(2,'0');
+      });
+    }
+    const footerNav=qs('.footer nav');
+    if(footerNav&&!footerNav.querySelector('a[href="#shop"]')){
+      const link=document.createElement('a');
+      link.href='#shop';
+      link.textContent=lang==='en'?'Products':'Prodotti';
+      const before=footerNav.querySelector('a[href="#recensioni"],a[href="#reviews"]');
+      if(before)footerNav.insertBefore(link,before); else footerNav.appendChild(link);
+    }
+  };
+
   const form=qs('form[data-newsletter-enhanced="true"]');
   if(form){
     const status=qs('.newsletter-status',form), button=qs('button[type="submit"]',form);
@@ -94,6 +117,7 @@
         }).join('');
         if(!grid.children.length)return;
         section.hidden=false;
+        exposeProductsNav();
         const head=qs('.products-showcase__head',section);
         if(head)head.classList.add('in');
       })
