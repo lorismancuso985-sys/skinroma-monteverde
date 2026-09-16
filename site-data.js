@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const qs=(s,c=document)=>c.querySelector(s);
-  const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
+  const escapeHtml=(v='')=>String(v).replace(/[&<>'\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[m]));
   const lang=document.documentElement.lang==='en'?'en':'it';
   const text=lang==='en'?{
     sending:'Sending…',ok:'Subscription received. Welcome to the Skin world.',error:'Something went wrong. Please try again.',invalid:'Please check the information entered.',cta:'Ask availability'
@@ -41,6 +41,10 @@
 
   const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
   if(ghdBrand)ghdBrand.textContent='GHD';
+
+  const menuTypeStyle=document.createElement('style');
+  menuTypeStyle.textContent='@media(max-width:680px){.menu-inner{padding-top:96px}.menu-inner nav a{font-size:2.72rem!important;line-height:.96!important;padding:4px 0!important;gap:17px!important}.menu-inner nav span{font-size:.5rem!important}}';
+  document.head.appendChild(menuTypeStyle);
 
   const bindProductsLink=link=>{
     if(!link||link.dataset.productsBound==='1')return;
