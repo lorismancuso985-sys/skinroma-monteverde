@@ -9,6 +9,13 @@
     sending:'Invio in corso…',ok:'Iscrizione ricevuta. Benvenuti nel mondo Skin.',error:'Qualcosa non ha funzionato. Riprova tra poco.',invalid:'Controlla i dati inseriti.',cta:'Chiedi disponibilità'
   };
 
+  const reviewScore=qs('.reviews-score');
+  if(reviewScore){
+    const value=qs('strong',reviewScore);
+    if(value)value.textContent='4,9';
+    reviewScore.setAttribute('aria-label',lang==='en'?'4.9 out of 5 on Treatwell, over 980 verified reviews':'Valutazione 4,9 su 5 su Treatwell, oltre 980 recensioni verificate');
+  }
+
   const form=qs('form[data-newsletter-enhanced="true"]');
   if(form){
     const status=qs('.newsletter-status',form), button=qs('button[type="submit"]',form);
