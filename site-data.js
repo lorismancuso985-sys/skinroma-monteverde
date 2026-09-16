@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const qs=(s,c=document)=>c.querySelector(s);
-  const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt',"'":'&#39;','"':'&quot;'}[m]));
+  const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const lang=document.documentElement.lang==='en'?'en':'it';
   const text=lang==='en'?{
     sending:'Sending…',ok:'Subscription received. Welcome to the Skin world.',error:'Something went wrong. Please try again.',invalid:'Please check the information entered.',cta:'Ask availability'
@@ -45,7 +45,8 @@
     ghdBrand.style.display='flex';
     ghdBrand.style.alignItems='center';
     ghdBrand.style.justifyContent='center';
-    ghdBrand.innerHTML='<img src="assets/ghd-logo.svg" alt="ghd" loading="lazy" decoding="async" style="display:block;width:74px;max-width:58%;max-height:48px;height:auto;object-fit:contain;margin:auto">';
+    ghdBrand.style.overflow='hidden';
+    ghdBrand.innerHTML='<img src="assets/ghd-logo.svg?v=20260916e" alt="ghd" loading="lazy" decoding="async" style="display:block;width:92px;max-width:72%;max-height:60px;height:auto;object-fit:contain;margin:auto;transform:translateY(1px) scaleX(1.05);transform-origin:center;">';
   }
 
   const form=qs('form[data-newsletter-enhanced="true"]');
