@@ -4,8 +4,19 @@
   let subscribers=[],products=[],editingImage='';
   const esc=(v='')=>String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const clearSensitive=()=>{subscribers=[];products=[];$('#subscribersList').innerHTML='';$('#productsList').innerHTML='';$('#subscriberCount').textContent='—';$('#productCount').textContent='—'};
-  const showLogin=()=>{$('#loginView').hidden=false;$('#dashboard').hidden=true};
-  const showDash=()=>{$('#loginView').hidden=true;$('#dashboard').hidden=false};
+  conconst showLogin=()=>{
+  $('#loginView').hidden=false;
+  $('#dashboard').hidden=true;
+  $('#loginView').style.display='grid';
+  $('#dashboard').style.display='none';
+};
+
+const showDash=()=>{
+  $('#loginView').hidden=true;
+  $('#dashboard').hidden=false;
+  $('#loginView').style.display='none';
+  $('#dashboard').style.display='block';
+};
   const expireSession=()=>{clearSensitive();showLogin();$('#loginStatus').textContent='Sessione scaduta. Accedi di nuovo.'};
   const api=async(path,options={})=>{
     const res=await fetch(`/.netlify/functions/${path}`,{credentials:'same-origin',...options,headers:{'content-type':'application/json','accept':'application/json',...(options.headers||{})}});
