@@ -55,7 +55,10 @@
     }
   };
   menuBtn?.addEventListener('click',()=>setMenu(!document.body.classList.contains('menu-open')));
-  qsa('.menu-panel a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  menuPanel?.addEventListener('click',e=>{
+    const link=e.target instanceof Element?e.target.closest('a[href]'):null;
+    if(link&&menuPanel.contains(link))setMenu(false);
+  });
 
   /* Reveal progressively, with a deterministic fallback. */
   const revealEls=qsa('.reveal');
