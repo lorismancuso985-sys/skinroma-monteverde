@@ -42,7 +42,7 @@
   const ghdBrand=[...document.querySelectorAll('.partner-logos span')].find(el=>el.textContent.trim().toLowerCase()==='ghd');
   if(ghdBrand){
     ghdBrand.setAttribute('aria-label','ghd');
-    ghdBrand.innerHTML='<img src="assets/ghd-logo.jpg" alt="ghd" loading="lazy" decoding="async" style="display:block;width:min(86px,78%);height:auto;margin:auto;mix-blend-mode:screen">';
+    ghdBrand.innerHTML='<img src="assets/ghd-logo.svg" alt="ghd" loading="lazy" decoding="async" style="display:block;width:min(104px,82%);height:auto;margin:auto">';
   }
 
   const form=qs('form[data-newsletter-enhanced="true"]');
