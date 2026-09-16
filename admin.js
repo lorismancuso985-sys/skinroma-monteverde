@@ -4,7 +4,7 @@
   let subscribers=[],products=[],editingImage='';
   const esc=(v='')=>String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const clearSensitive=()=>{subscribers=[];products=[];$('#subscribersList').innerHTML='';$('#productsList').innerHTML='';$('#subscriberCount').textContent='—';$('#productCount').textContent='—'};
-  conconst showLogin=()=>{
+  const showLogin=()=>{
   $('#loginView').hidden=false;
   $('#dashboard').hidden=true;
   $('#loginView').style.display='grid';
