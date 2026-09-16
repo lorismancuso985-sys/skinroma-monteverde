@@ -1,0 +1,8 @@
+/supabase-setup.sql         /404.html  404!
+/SETUP-CARLO-ADMIN.txt      /404.html  404!
+/FINAL-AUDIT.txt            /404.html  404!
+/FINAL-AUDIT-CARLO.txt      /404.html  404!
+/.env.example               /404.html  404!
+/netlify.toml               /404.html  404!
+/admin                      /admin.html 200
+/gestione                   /admin.html 200

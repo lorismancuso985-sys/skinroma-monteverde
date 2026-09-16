@@ -1,0 +1,66 @@
+SKIN ROMA · FINAL PRE-DEPLOY AUDIT · 15/09/2026
+
+AUDIT STRUTTURA
+PASS · HTML IT/EN, privacy, thank-you, admin e 404 parsati senza errori strutturali.
+PASS · 0 ID duplicati.
+PASS · 0 link/asset locali mancanti.
+PASS · tutti i controlli form risultano etichettati.
+PASS · tutti i link target=_blank hanno rel=noopener.
+PASS · nessun riferimento HTTP misto.
+PASS · 37 immagini locali leggibili; dimensioni dichiarate HTML verificate contro i file reali.
+PASS · 2 video MP4 H.264/yuv420p verificati con ffprobe.
+PASS · CSS styles.css + admin.css parsati senza errori.
+PASS · JavaScript client + Netlify Functions verificati con node --check.
+PASS · netlify.toml parsato correttamente.
+
+FIX REALI APPLICATI IN QUESTO AUDIT
+- Corretto CSP: blob: ora consentito per la preview/compressione immagini del pannello; prima l'upload da telefono poteva essere bloccato.
+- Corretto catalogo dinamico: le card prodotto non restano più invisibili per la classe reveal aggiunta dopo l'IntersectionObserver.
+- Corretto fallback newsletter: 404/503/5xx ricadono su Netlify Forms; gli errori di validazione 4xx non bypassano più i controlli server.
+- Validazione telefono server-side migliorata.
+- Login admin irrobustito con confronto hash timing-safe e cookie __Host- HttpOnly/Secure/SameSite=Strict.
+- Logout limitato a POST e pulizia dati sensibili lato browser dopo logout/sessione scaduta.
+- ID UUID, prezzi, ordinamento e URL immagini prodotti validati lato server.
+- Upload immagini validato anche tramite firma reale JPEG/PNG/WEBP e limite dimensione.
+- Upload iPhone reso più tollerante: input image/* + compressione browser con gestione errori.
+- CSV protetto da formula injection e generato con CRLF/BOM per Excel.
+- Paginazione admin aggiunta per non fermarsi ai primi 1000 record.
+- Pannello admin no-cache/noindex; /admin disponibile come alias di /admin.html.
+- robots.txt aggiornato per escludere area admin.
+- Aggiunti _headers e _redirects per maggiore affidabilità nei deploy manuali/statici.
+- Bloccato accesso web diretto a file operativi/source (setup, SQL, env example, audit, netlify.toml, sorgenti functions).
+- SQL Supabase reso più robusto con check constraint e indici.
+- SETUP aggiornato: se resta un solo deploy, Supabase + variabili Netlify vanno configurati prima del deploy finale.
+
+FUNZIONALITÀ PREVISTE
+PASS · newsletter IT/EN: nome, cognome, email, telefono, consenso + honeypot.
+PASS · fallback Netlify Forms se backend non disponibile.
+PASS · privacy IT/EN aggiornata a newsletter, Supabase/Brevo/Netlify e info@skinroma.it.
+PASS · /admin privato con iscritti, ricerca, CSV, eliminazione.
+PASS · prodotti: crea/modifica/elimina/pubblica/nascondi + foto da telefono.
+PASS · vetrina prodotti pubblica invisibile se non ci sono prodotti pubblicati.
+PASS · sync Brevo opzionale.
+
+NOTA OPERATIVA
+Il codice è pre-deploy-ready. Il gestionale non può essere verificato end-to-end senza un progetto Supabase reale e senza le variabili ambiente Netlify. Per evitare un secondo deploy, completare prima SETUP-CARLO-ADMIN.txt e poi fare il deploy finale includendo le Netlify Functions.
+
+AGGIORNAMENTO FINALE 16/09/2026
+- Banner newsletter premium sotto header: IT + EN, CTA con scroll al form, chiusura per sessione.
+- Banner si nasconde automaticamente quando il modulo newsletter entra in viewport.
+- Mobile: PRENOTA e WhatsApp si nascondono nella sezione newsletter per non coprire consenso/campi/CTA.
+- Aggiunto spazio e scroll-margin per evitare titolo newsletter coperto dall'header.
+- Pannello /admin incluso con iscritti newsletter, ricerca, export CSV e gestione prodotti/foto.
+- netlify.toml forza un build minimo così Netlify prepara anche le Functions nel deploy del progetto.
+
+
+PATCH 16/09/2026b
+- Cache-busting CSS/JS per eliminare il mix tra HTML nuovo e stile/script vecchi su Safari.
+- CSS/JS impostati a revalidate immediata.
+- Banner newsletter rifinito su mobile.
+- CTA Prenota + WhatsApp nascosti in modo deterministico dentro la newsletter.
+- Rimosso redirect che intercettava /.netlify/functions/* e poteva bloccare il pannello admin.
+
+PATCH FINALE 16/09/2026c
+- Aggiunto alias /gestione per dare a Carlo un URL semplice e professionale.
+- /gestione e /admin restano no-cache e noindex.
+- robots.txt aggiornato per escludere anche /gestione.

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /gestione
+
+Sitemap: https://skinroma.it/sitemap.xml

@@ -1,0 +1,60 @@
+SKIN ROMA · ATTIVAZIONE PANNELLO CARLO
+
+IMPORTANTE SE VUOI FARE UN SOLO DEPLOY FINALE
+Non usare l'ultimo deploy prima di aver completato i passaggi 1 e 2. Il sito pubblico funziona anche senza backend grazie al fallback Netlify Forms, ma il pannello privato e la gestione prodotti richiedono le Functions + Supabase.
+
+1) SUPABASE
+- Crea un progetto gratuito Supabase.
+- Apri SQL Editor, incolla ed esegui tutto il file supabase-setup.sql.
+- Project Settings > API Keys: copia Project URL e crea una Secret key (sb_secret_...). La Secret key NON va mai inserita in HTML/JS pubblico.
+
+2) NETLIFY > SITE CONFIGURATION > ENVIRONMENT VARIABLES
+Aggiungi PRIMA del deploy finale:
+SUPABASE_URL = Project URL
+SUPABASE_SECRET_KEY = Secret key (sb_secret_...)
+ADMIN_PASSWORD = password forte scelta per Carlo
+SESSION_SECRET = stringa casuale lunga almeno 32 caratteri
+
+Opzionale per sincronizzazione automatica Brevo:
+BREVO_API_KEY = API key Brevo
+BREVO_LIST_ID = ID numerico della lista contatti
+
+3) DEPLOY FINALE
+Per il gestionale, il deploy deve includere anche le Netlify Functions in netlify/functions.
+Questo pacchetto contiene netlify.toml con un build minimo: se sei loggato su Netlify, carica l'intero ZIP/cartella del progetto nella dropzone del progetto (non soltanto i file HTML). Netlify deve eseguire il build e preparare le Functions.
+Dopo il deploy, in Netlify verifica che nella sezione Functions compaiano:
+admin-login, admin-logout, admin-data, admin-subscribers, admin-products, admin-upload, newsletter, products.
+Se le Functions non compaiono, usa Netlify CLI o un deploy Git e non consegnare il pannello come attivo finché non sono presenti.
+
+4) TEST PRIMA DI CONSEGNARE
+- Apri https://skinroma.it/ e verifica homepage IT.
+- Apri https://skinroma.it/en.html e verifica homepage EN.
+- Fai una prova newsletter con dati di test.
+- Apri https://skinroma.it/admin e accedi con ADMIN_PASSWORD.
+- Verifica che il contatto test compaia negli iscritti.
+- Crea un prodotto test con foto dal telefono, lascialo nascosto, salvalo e modificalo.
+- Pubblicalo e verifica la comparsa sul sito; poi eliminalo/nascondilo.
+- Esporta CSV e verifica le colonne.
+
+5) NEWSLETTER / BREVO
+Il modulo raccoglie Nome, Cognome, Email, Telefono e consenso.
+Con Supabase attivo, i dati finiscono nel database e nel pannello.
+Con BREVO_API_KEY + BREVO_LIST_ID attivi, il contatto viene anche sincronizzato nella lista Brevo.
+Se il backend è temporaneamente non disponibile, il modulo pubblico ricade su Netlify Forms per non perdere la richiesta.
+
+6) EMAIL
+info@skinroma.it resta separata dal codice del sito. In Brevo configurala come mittente e completa solo i record DNS richiesti per l'autenticazione email: non cambiare nameserver, record A o CNAME del sito.
+
+SICUREZZA
+- Non condividere SUPABASE_SECRET_KEY.
+- Non inserire ADMIN_PASSWORD in HTML o JavaScript.
+- Il login usa un cookie HttpOnly/Secure firmato valido 12 ore.
+- admin.html è noindex e no-cache.
+
+
+LINK DA INVIARE A CARLO DOPO IL DEPLOY
+https://skinroma.it/gestione
+(alias equivalente: https://skinroma.it/admin)
+
+IMPORTANTE SUL DEPLOY
+Il pannello usa Netlify Functions. Dopo il deploy, controlla in Netlify > Functions che siano presenti le funzioni elencate sopra. Se non compaiono, il solo caricamento dei file statici non e' sufficiente: usa un deploy del progetto che processi le Functions (Git/Netlify build oppure Netlify CLI/API).
