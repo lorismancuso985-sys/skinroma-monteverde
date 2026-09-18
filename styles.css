@@ -797,3 +797,27 @@ video{background:#171412}
   }
   .newsletter-inner{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
 }
+
+
+/* === LEGAL FOOTER — minimal company disclosure === */
+.footer-legal{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding:25px 0;
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:34px;
+  align-items:end;
+}
+.footer-legal__company{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;max-width:920px;color:#8f8580;font-size:.62rem;line-height:1.65;letter-spacing:.03em}
+.footer-legal__company strong{color:#d9d0cb;font-weight:650}
+.footer-legal__company a{color:#b6aaa4;border-bottom:1px solid rgba(255,255,255,.16);transition:color .2s,border-color .2s}
+.footer-legal__company a:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.footer-legal__links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px}
+.footer-legal__links a{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#9d928c;transition:color .2s}
+.footer-legal__links a:hover{color:#fff}
+@media(max-width:760px){
+  .footer-legal{grid-template-columns:1fr;gap:20px;align-items:start}
+  .footer-legal__company{display:grid;gap:4px;font-size:.61rem}
+  .footer-legal__links{justify-content:flex-start;gap:12px 16px}
+  .footer-bottom{flex-wrap:wrap}
+}
